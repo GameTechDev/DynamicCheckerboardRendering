@@ -1,0 +1,124 @@
+   + Application ...
+        + CPS_Emulation ...
+             CPS Mode 0:  All On
+             Enable:  on
+             Sampling Bias:  1.000000
+        + CPS_MSAA ...
+             Enable:  off
+             LOD NoBias:  off
+             Set Samples as Grid:  off
+             Set-Sample Supported:  off
+        + Checkerboard ...
+             Debug:  off
+             Enable:  off
+             Mode:  2x
+        + Forward+ ...
+             Light Grid Dim:  16
+             Show Wave Tile Counts:  off
+        + Lighting ...
+             Ambient Intensity:  0.857418
+             Shadow Dim X:  40.000000
+             Shadow Dim Y:  40.000000
+             Shadow Dim Z:  35.000000
+             Sun Inclination:  0.670000
+             Sun Light Intensity:  2.297396
+             Sun Orientation:  7.299995
+        + MSAA ...
+             Depth Resolve Enable:  off
+             MSAA Depth Resolve Mode:  Min
+             MSAA Enable:  off
+             MSAA Mode:  4x
+             MSAA Resolver:  Custom
+        + Upsampling ...
+             Enable:  off
+             Mode:  1x
+   Display Frame Rate:  on
+   Display Performance Graph:  off
+   Display Profiler:  off
+   + Graphics ...
+        + AA ...
+             + FXAA ...
+                  Always Recompute Log-Luma:  off
+                  Contrast Threshold:  0.175000
+                  Debug:  off
+                  Enable:  off
+                  Subpixel Removal:  0.500000
+             + TAA ...
+                  Bicubic Filtering:  on
+                  Blue Noise:  on
+                  CPSWeight Mode:  Gaussian
+                  Disocclusion Visual:  off
+                  Enable:  on
+                  NumSamples:  8.000000
+                  Reset:  off
+                  Sharpness:  0.000000
+                  Silhouette Threshold Factor:  0.400000
+                  Silhouette Visual in Motion:  off
+                  Speed Limit:  32.000000
+                  Temporal Acc Modifier:  0.000000
+                  Variance Extension:  3.000000
+        + Bloom ...
+             Enable:  off
+             High Quality:  off
+             Scatter:  0.650000
+             Strength:  0.100000
+             Threshold:  4.000000
+        + Depth of Field ...
+             AntiSparkle:  1.000000
+             Debug Mode:  Off
+             Debug Tiles:  off
+             Enable:  off
+             FG Range:  100.000000
+             Focal Center:  0.100000
+             Focal Radius:  0.100000
+             Force Fast Path:  off
+             Force Slow Path:  off
+             Median Alpha:  off
+             Median Filter:  on
+             PreFilter:  on
+        + Display ...
+             Bicubic Filter Weight:  -0.750000
+             HDR Debug Mode:  HDR
+             Magnify Pixels:  Off
+             Native Resolution:  1920x1080
+             Paper White (nits):  200.000000
+             Peak Brightness (nits):  1000.000000
+             Sharpness Sample Rotation:  45.000000
+             Sharpness Sample Spread:  1.000000
+             Sharpness Strength:  0.100000
+             Upsample Filter:  Sharpening
+        + HDR ...
+             Adaptation Rate:  0.050000
+             Adaptive Exposure:  off
+             Draw Histogram:  off
+             Enable:  off
+             Exposure:  2.000000
+             Key:  0.080000
+             Max Exposure:  64.000000
+             Min Exposure:  0.015625
+        + Motion Blur ...
+             Enable:  off
+        + Particle Effects ...
+             Dynamic Resolution Cutoff:  0.000000
+             Enable:  off
+             Mip Bias:  0.000000
+             Pause Simulation:  off
+             Sort Sprites:  on
+             Tiled Rendering:  on
+             Tiled Sample Rate:  Dynamic
+        + SSAO ...
+             Accentuation:  0.700000
+             Always Linearize Z:  on
+             Async Compute:  off
+             Blur Tolerance (log10):  -5.000000
+             Debug Draw:  off
+             Enable:  on
+             Hierarchy Depth:  3
+             Noise Filter Threshold (log10):  -3.000000
+             Quality Level:  High
+             Rejection Falloff (rcp):  2.500000
+             Upsample Tolerance (log10):  -7.000000
+   + Timing ...
+        Drop Random Frames:  off
+        Limit To 30Hz:  off
+        VSync:  on

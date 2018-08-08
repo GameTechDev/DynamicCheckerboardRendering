@@ -1,0 +1,6 @@
+
+*.opendb
+MiniEngine/ModelViewer/imgui.ini
+/teaser_panning1x.anim
+/teaser_panning2x.anim
+/testexe/ModelViewer.exe

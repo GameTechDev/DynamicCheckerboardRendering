@@ -4,7 +4,7 @@ This repository is based on a snapshot of Microsoft's repository.
 ## Sample Overview
 *The tested IDE is Visual Studio 2017.*
 
-This repository contains a straight forward integration of CBR and DRR into the DX12 MiniEngine.  An indepth explanation of CBR and the algorithms presented here can be found in the corresponding white paper: [TODO: add white paper link]
+This repository contains a straight forward integration of CBR and DRR into the DX12 MiniEngine.  An indepth explanation of CBR and the algorithms presented here can be found in the corresponding white paper: https://software.intel.com/en-us/articles/checkerboard-rendering-for-real-time-upscaling-on-intel-integrated-graphics-v-12
 
 The sample is designed to "build and run".  Simply clone (or download) this repository, build the MiniEngine\ModelViewer\ModelViewer_VS17.sln solution and run.  CBR is enabled by default, it (along with multiple other post processes) can be enabled or disabled by pressing the 'backspace' key to bring up the toggle menu.
 

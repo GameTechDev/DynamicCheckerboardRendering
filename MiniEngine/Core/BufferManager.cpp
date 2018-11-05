@@ -537,17 +537,17 @@ void Graphics::RecreateMsaaBuffers(int index, int msaaMode, int width, int heigh
 
     switch ( msaaMode )
     {
-    case 1 : 
+    case 0: 
         pColor = &g_SceneColorBuffers2x[index];
         pDepth = &g_SceneDepthBuffers2x[index];
         SampleCount = 2;
         break;
-    case 2:
+    case 1:
         pColor = &g_SceneColorBuffers4x[index];
         pDepth = &g_SceneDepthBuffers4x[index];
         SampleCount = 4;
         break;
-    case 3:
+    case 2:
         pColor = &g_SceneColorBuffers8x[index];
         pDepth = &g_SceneDepthBuffers8x[index];
         SampleCount = 8;

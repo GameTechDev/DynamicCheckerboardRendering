@@ -736,6 +736,7 @@ void Graphics::PreparePresentLDR(void)
 
     ColorBuffer& UpsampleDest = (DebugZoom == kDebugZoomOff ? g_DisplayPlane[g_CurrentBuffer] : g_PreDisplayBuffer);
 
+    // DRR Upscale
     if (g_ResolutionScale != 1.0f && 
         ((g_pSceneColorBuffer->GetWidth()  != g_NativeWidth) ||
          (g_pSceneColorBuffer->GetHeight() != g_NativeHeight)) )

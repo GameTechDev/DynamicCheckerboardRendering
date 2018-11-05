@@ -206,7 +206,7 @@ EnumVar CbrRenderCheckerPattern("Checkerboard/Show Checker Pattern", 0, _countof
 BoolVar DrrEnabled("DRR/Enable", true);
 BoolVar DrrForceScale("DRR/Force Scale", false);
 ExpVar DrrResolutionIncrements("DRR/Resolution Increments", .1f, log2(.01f), log2(1.0f));
-IntVar DrrDesiredFrameRate("DRR/Desired Frame Rate", 60, 15, 360, 15 );
+IntVar DrrDesiredFrameRate("DRR/Desired Frame Rate", 60, 15, 360, 5 );
 
 ExpVar DrrMinScale("DRR/Min Scale", 0.7f, -3.0f, 0.0f, 0.1f);
 ExpVar DrrFrameRateDeltaResolution("DRR/_Advanced/Frame Rate Delta Resolution", .10f, log2(.001f), log2(1.0f) );
@@ -492,6 +492,7 @@ void ModelViewer::Startup(void)
     m_AnimationController->AnimateBoolVar(&ShowWaveTileCounts, "ShowWaveTileCounts");
 
     // TODO: DRR - This might not work with our aliased placed resources
+    // If we care about running the sequencer this needs to be tested
     m_Sequencer.SetSrcBuffer(Graphics::g_pSceneColorBuffer);
     m_Sequencer.SetDstRootFolder(m_Scene.GetRootFolder());
 
@@ -1244,10 +1245,12 @@ void ModelViewer::UpdatePlacedResources(GraphicsContext& context)
     static int PlacedResourceIndex;
     static int FramesUntilSafeRefresh;
     
-    // PlacedResourceIndex + 2 because the next frame (PlacedResourceIndex + 1) will be used if DRR has to change
-    // + 1 is valid because an extra buffer is allocated for cbr
+    // CBR (Checkerboard Rendering) uses every other resource
+    // This always leaves Resource N+1 available for DRR to 
+    // jump to if it needs to change resoluiton
     int CheckerAlternateIndex = (PlacedResourceIndex + 2) % NUM_CHECKER_BUFFERS;
 
+    // DRR is currently on
     if (DrrEnabled) 
     {
         bool DrrRefresh = false;
@@ -1278,6 +1281,8 @@ void ModelViewer::UpdatePlacedResources(GraphicsContext& context)
             int drrWidth = ALIGN((int) (g_DisplayWidth * g_ResolutionScale), 4);
             int drrHeight = ALIGN((int) (g_DisplayHeight * g_ResolutionScale), 4);
 
+            // amount of change in each resolution
+            // used for testing below - we won't change if it is less than N pixels difference
             int diffX = g_pSceneColorBuffer->GetWidth() - drrWidth;
             int diffY = g_pSceneColorBuffer->GetHeight() - drrHeight;
 
@@ -1297,8 +1302,9 @@ void ModelViewer::UpdatePlacedResources(GraphicsContext& context)
 
                 if ( CbrEnabled )
                 {
-                    // PlacedResourceIndex + 2 because the next frame (PlacedResourceIndex + 1) will be used if DRR has to change
-                    // + 1 is valid because an extra buffer is allocated for cbr
+                    // CBR (Checkerboard Rendering) uses every other resource
+                    // This always leaves Resource N+1 available for DRR to 
+                    // jump to if it needs to change resoluiton
                     CheckerAlternateIndex = (PlacedResourceIndex + 2) % NUM_CHECKER_BUFFERS;
                     Graphics::RecreateCBRBuffers( PlacedResourceIndex, CheckerAlternateIndex, drrWidth >> 1, drrHeight >> 1 );
                 }
@@ -1312,6 +1318,8 @@ void ModelViewer::UpdatePlacedResources(GraphicsContext& context)
             }
         }
     }
+    // DRR was on last frame, is now off this frame
+    // we need to do this once each state change (on to off)
     else if ( DrrWasEnabled )
     {
         // Drr is now disabled, recreate all our buffers at full resolution
@@ -1319,9 +1327,9 @@ void ModelViewer::UpdatePlacedResources(GraphicsContext& context)
 
         Graphics::RecreateCBRBuffers( PlacedResourceIndex, CheckerAlternateIndex, g_DisplayWidth >> 1, g_DisplayHeight >> 1 );
         
+        Graphics::RecreateMsaaBuffers( PlacedResourceIndex, 0, g_DisplayWidth, g_DisplayHeight );
         Graphics::RecreateMsaaBuffers( PlacedResourceIndex, 1, g_DisplayWidth, g_DisplayHeight );
         Graphics::RecreateMsaaBuffers( PlacedResourceIndex, 2, g_DisplayWidth, g_DisplayHeight );
-        Graphics::RecreateMsaaBuffers( PlacedResourceIndex, 3, g_DisplayWidth, g_DisplayHeight );
 
         Graphics::RecreateSceneDepthBuffer( PlacedResourceIndex, g_DisplayWidth, g_DisplayHeight );
         Graphics::RecreateSceneColorBuffer( PlacedResourceIndex, g_DisplayWidth, g_DisplayHeight );
@@ -1405,15 +1413,15 @@ void ModelViewer::SetFrameBuffers( GraphicsContext& context, int index, int alt_
     {
         switch ( MsaaMode )
         {
-        case 1 : 
+        case 0 : 
             g_pMsaaColor = &g_SceneColorBuffers2x[index];
             g_pMsaaDepth = &g_SceneDepthBuffers2x[index];
             break;
-        case 2:
+        case 1:
             g_pMsaaColor = &g_SceneColorBuffers4x[index];
             g_pMsaaDepth = &g_SceneDepthBuffers4x[index];
             break;
-        case 3:
+        case 2:
             g_pMsaaColor = &g_SceneColorBuffers8x[index];
             g_pMsaaDepth = &g_SceneDepthBuffers8x[index];
             break;
